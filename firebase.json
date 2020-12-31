@@ -12,6 +12,7 @@
     ]
   },
   "hosting": {
+    "site": "profprep",
     "public": "public",
     "ignore": [
       "firebase.json",
