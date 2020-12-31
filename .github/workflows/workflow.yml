@@ -15,19 +15,19 @@ runs-on: ubuntu-latest
         channel: 'beta' # Currently you have to use beta channel for Flutter web.
     - name: Upgrades flutter
       run: flutter upgrade
-      working-directory: ./example
+      working-directory: ./prof_prep
     - name: Enable Web
       run: flutter config --enable-web
-      working-directory: ./example
+      working-directory: ./prof_prep
     - name: Install dependencies
       run: flutter packages get
-      working-directory: ./example
+      working-directory: ./prof_prep
     - name: Build Web
       run: flutter build web
-      working-directory: ./example
+      working-directory: ./prof_prep
     - name: Deploy
       run: |
-        cd example/build/web
+        cd prof_prep/web
         git init
         git config user.name  "CI"
         git config user.email "flutter-ci@github.com"
