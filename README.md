@@ -1,6 +1,6 @@
 # prof_prep
 
-A new Flutter application to connect the e-commerce with Google solutions.
+A new Flutter application to connect the e-commerce with Google solutions https://prof-prep.web.app/#/.
 
 ## Getting Started
 
