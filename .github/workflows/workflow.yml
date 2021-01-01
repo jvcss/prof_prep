@@ -1,9 +1,14 @@
 name: Flutter Web
-on: [push]
+
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   build:
-runs-on: ubuntu-latest
-        
+    runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-java@v1
@@ -27,7 +32,7 @@ runs-on: ubuntu-latest
       working-directory: ./prof_prep
     - name: Deploy
       run: |
-        cd prof_prep/web
+        cd prof_prep/build/web
         git init
         git config user.name  "CI"
         git config user.email "flutter-ci@github.com"
