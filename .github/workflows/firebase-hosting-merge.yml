@@ -14,8 +14,8 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANDROID_START_7865F }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANDROID_PROF_PREP }}'
           channelId: live
-          projectId: android-start-7865f
+          projectId: prof-prep
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels

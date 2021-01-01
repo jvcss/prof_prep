@@ -1,19 +1,41 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:prof_prep/app/auth_widget.dart';
+import 'package:prof_prep/app/home/home_page.dart';
+import 'package:prof_prep/app/onboarding/onboarding_page.dart';
+import 'package:prof_prep/app/onboarding/onboarding_view_model.dart';
+import 'package:prof_prep/app/top_level_providers.dart';
+import 'package:prof_prep/app/sign_in/sign_in_page.dart';
+import 'package:prof_prep/routing/app_router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prof_prep/services/shared_preferences_service.dart';
 void main() {
   runApp(MyApp());
 }
+
+
+
+
+
+
+
+
+
+
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Prof Prep',
       theme: ThemeData(
 
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'logo'),
     );
   }
 }
