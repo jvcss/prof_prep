@@ -1,4 +1,16 @@
-import 'package:flutter/material.dart';
+//import 'dart:async';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart'
+    show
+        Widget, runApp, BuildContext,
+        Center, Colors, Column,
+        Icons, MaterialApp, Scaffold,
+        Text, Theme, ThemeData;
+
+import 'package:firebase_core/firebase_core.dart' show Firebase;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:prof_prep/app/auth_widget.dart';
@@ -9,84 +21,49 @@ import 'package:prof_prep/app/top_level_providers.dart';
 import 'package:prof_prep/app/sign_in/sign_in_page.dart';
 import 'package:prof_prep/routing/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:riverpod/riverpod.dart';
 import 'package:prof_prep/services/shared_preferences_service.dart';
-void main() {
-  runApp(MyApp());
+
+import 'package:flutter/material.dart';
+
+
+Future<void>  main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  final sharedPreferences = await SharedPreferences.getInstance();
+
+
+  runApp(
+       ProviderScope(
+         overrides: [
+           sharedPreferencesServiceProvider.overrideWithValue(
+             SharedPreferencesService(sharedPreferences),
+           ),
+         ],
+         child: App(),
+  )
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-class MyApp extends StatelessWidget {
+//LIGHT WAY TO CODE, important this app doesn't need update himself constantly
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Prof Prep',
-      theme: ThemeData(
+    //TODO ASYNC COMMUNICATE TO FIREBASE ISOLATED.
+    final firebaseAuth = context.read(firebaseAuthProvider);
 
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'logo'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+    return  MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.yellowAccent),
+      // home: AuthWidget(
+      //   nonSIgnedInBuilder: (_) => Consumer(
+      //     builder: (context, watch, _){
+      //       final didCompleteOnboarding = watch(onboardingViewModelProvider.state);
+      //       return didCompleteOnboarding ? SignInPage() : OnboardingPage();
+      //     },
+      //   ),
+      //   signedInBuilder: (_) => HomePage(),
+      // ),
+      onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings, firebaseAuth),
     );
   }
 }
